@@ -1,4 +1,5 @@
 import os
+import subprocess
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -30,8 +31,9 @@ def process_python():
             return render_sandbox_catched()
     code_file.write(code)
     code_file.close()
-    os.system("python code_file.py >& result_file.txt")
-    result_file = open("result_file.txt", "rw")
+    with open("result_file.txt", "w+") as output:
+        subprocess.call(["python", "code_file.py"], stdout=output)
+    result_file = open("result_file.txt", "r+")
     lines = result_file.readlines()
     result_file.close()
     return render_python_with_data(lines, code)
