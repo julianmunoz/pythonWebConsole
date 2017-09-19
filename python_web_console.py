@@ -26,7 +26,7 @@ def render_sandbox_catched():
 def process_python():
     code_file = open('code_file.py', 'w')
     code = request.form.get('note')
-    for elem in ['import os', 'subprocess', 'import file', 'import sys']:
+    for elem in ['import os', 'subprocess', 'import file', 'import sys', 'open', 'read']:
         if elem in code:
             return render_sandbox_catched()
     code_file.write(code)
